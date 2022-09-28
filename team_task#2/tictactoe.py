@@ -2,6 +2,9 @@ from enum import Enum
 from copy import deepcopy
 import random
 
+'''
+보드판에 들어갈 'O','X','비어있음'을 Enum으로 정의 
+'''
 class Mark(Enum):
     X = 'X'
     O = 'O'
@@ -18,6 +21,9 @@ class TicTaeToe:
             [Mark.EMPTY,Mark.EMPTY,Mark.EMPTY]
         ]
 
+    '''
+    보드판 출력
+    '''
     def draw(self):
         for i in range(3):
             for j in range(3):
@@ -25,7 +31,9 @@ class TicTaeToe:
             print("\n")
         print("----------------------------------")
 
-    # 빈 곳의 위치들을 배열에 담아 반환
+    '''
+    O 또는 X가 입력될 수 있는 보드의 위치들을 배열에 넣어 반환 
+    '''
     def actions(self,state):
         ret = []
         for i in range(3):
@@ -34,15 +42,20 @@ class TicTaeToe:
                     ret.append([i,j])
         return ret
 
-    # 게임판에 입력
+    '''
+    게임판에 O 또는 X를 새롭게 입력하여,
+    새로운 게임판을 반환
+    '''
     def result(self,state,action,player):
         temp_state = deepcopy(state)
         a_x, a_y = action
         temp_state[a_x][a_y] = player
         return temp_state
 
-    # 게임이 종료되었는지 확인
-    #  
+    '''
+    게임 종료 여부 확인.
+    종료여부(boolean) , 판세평가값(10 or -10 or 0)을 반환
+    '''
     def terminal(self,state):
         check_pos = [0,1,2]
         for pos in check_pos:
@@ -80,7 +93,6 @@ class TicTaeToe:
                     value = cur_v
                     x, y = a
             return (value, x, y)
-
 
     def min_value(self,state,depth):
         value = 999999999
@@ -137,9 +149,9 @@ class TicTaeToe:
 
     def end(self,utility):
         if utility == 10:
-            print("X win!")
+            print("AI(X) win!")
         elif utility == -10:
-            print("O win!")
+            print("You(O) win!")
         else:
             print("draw!")
 
