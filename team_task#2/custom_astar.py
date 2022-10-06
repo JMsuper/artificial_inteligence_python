@@ -39,15 +39,9 @@ class State:
   def f(self):
     return self.h()+self.g()
 
-  # 휴리스틱 함수 값인 h(n)을 계산하여 반환한다. 
   def h(self):
-    sum = 0
-    for i in range(8):
-        bx, by = i // 3 , i % 3
-        g_val = self.goal_pos[self.board[i]]
-        gx, gy = g_val // 3 , g_val % 3
-        sum += abs(bx - gx) + abs(by - gy)
-    return sum
+   #현재값과 정답의 차등의 합
+   return sum([abs(self.board[i] -self.goal[i]) for i in range(8)])
 
   # 시작 노드로부터의 경로를 반환한다. 
   def g(self):

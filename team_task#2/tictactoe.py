@@ -10,7 +10,7 @@ class Mark(Enum):
     O = 'O'
     EMPTY = '.'
 
-class TicTaeToe:
+class TicTacToe:
     def __init__(self):
         self.initialize()
 
@@ -110,13 +110,28 @@ class TicTaeToe:
             return (value, x, y)
 
     def start(self):
-        print("---------Tic Tae Toe Start!----------")
-        print("AI Turn(X)")
-        self.cur_state = self.result(self.cur_state,[random.randrange(0,2),random.randrange(0,2)],Mark.X)
-        self.draw()
+        print("---------Tic Tac Toe Start!----------")
 
+        AI_MARK, PLAYER_MARK = None, None
+        print("선공은 X , 후공은 O 을 갖게 됩니다.")
+        print("먼저 시작하시겠습니까? (y/n):",end="")
+        choice = input()
+        if choice == 'y':
+            AI_MARK = Mark.O
+            PLAYER_MARK = Mark.X
+        elif choice == 'n':
+            AI_MARK = Mark.X
+            PLAYER_MARK = Mark.O
+        else:
+            print("y 혹은 n을 입력해야 합니다.")
+            exit()
+
+        if AI_MARK == Mark.X:
+            print("AI Turn (%c)" % AI_MARK.value)
+            self.cur_state = self.result(self.cur_state,[random.randrange(0,2),random.randrange(0,2)],AI_MARK)
+            self.draw()
         while True:
-            print("Your Turn(O)")
+            print("Your Turn(%s)" % PLAYER_MARK.value)
             print("x (0~2) : ",end="")
             x = input()
             print("y (0~2) : ",end="")
@@ -129,14 +144,14 @@ class TicTaeToe:
                 continue
 
             if 0 <= x <= 2 and 0 <= y <= 2 and self.cur_state[x][y] == Mark.EMPTY:
-                self.cur_state = self.result(self.cur_state,[x,y],Mark.O)
+                self.cur_state = self.result(self.cur_state,[x,y],PLAYER_MARK)
                 self.draw()
 
                 min_is_end, min_utility = self.terminal(self.cur_state)
                 if not min_is_end:
-                    print("AI Turn(X)")
+                    print("AI Turn (%s)" % AI_MARK.value)
                     _, x, y = self.max_value(self.cur_state,0)
-                    self.cur_state = self.result(self.cur_state,[x,y],Mark.X)
+                    self.cur_state = self.result(self.cur_state,[x,y],AI_MARK)
                     self.draw()
 
                     max_is_end, max_utility = self.terminal(self.cur_state)
@@ -149,13 +164,13 @@ class TicTaeToe:
 
     def end(self,utility):
         if utility == 10:
-            print("AI(X) win!")
+            print("AI win!")
         elif utility == -10:
-            print("You(O) win!")
+            print("You win!")
         else:
             print("draw!")
 
 if __name__ == '__main__':
-    tic_tae_toe = TicTaeToe()
-    game_result = tic_tae_toe.start()
-    tic_tae_toe.end(game_result)
+    tic_tac_toe = TicTacToe()
+    game_result = tic_tac_toe.start()
+    tic_tac_toe.end(game_result)
