@@ -1,0 +1,136 @@
+
+<!doctype html>
+<html lang="ko"> 
+ 	<head>
+		<meta http-equiv="Content-Type" Pragma="no-cache" Cache-control="no-cache" content="text/html; charset=utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<meta name="viewport" content="width=1024" />
+		<meta name="description" content="신한은행"/>
+		<title>신한은행</title>
+		<link rel="shortcut icon" type="image/x-icon" href="https://image.shinhan.com/favicon.ico" />
+		<link href="/websquare/skin/stylesheet_ext.css" type="text/css" rel="stylesheet"/>
+		<link href="/comcss/intro.css" type="text/css" rel="stylesheet" />
+		<link href="/comcss/template.css?dt=1665928015299" type="text/css" rel="stylesheet"/>
+		<script type="text/javascript" src="/hpe/main/config.js?dt=20170428"></script>
+		<script type="text/javascript" src="/sw/astx/js/astx2.min.js?r=13284"></script>
+		<script type="text/javascript" src="/sw/astx/js/astx2_custom.js"></script>
+		<script type="text/javascript" src="/sw/astx/js/astx2_ml.min.js?r=13924"></script>
+		<script type="text/javascript" src="/sw/astx/js/astx2_jq.min.js?r=15816"></script>
+		<script type="text/javascript" src="/websquare/javascript.wq?q=/bootloader"></script>
+		<script type="text/javascript" src="/comjs/websquare_hotfix.js"></script>
+		<script type="text/javascript" src="/websquare/externalJS/big/big.min.js"></script> 
+		<script type="text/javascript" src="/websquare/externalJS/jquery/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="/comjs/ui/TweenMax.min.js?dt=20170415"></script>
+		<script type="text/javascript" src="/comjs/ui/jquery-ui.min.js?dt=20170415"></script>  
+		<script type="text/javascript" src="/comjs/ui/ui.js?dt=20170415"></script>
+		<script type="text/javascript" src="/comjs/shbComm.js?dt=20170415"></script>
+		<script type="text/javascript" src="/comjs/lang/biz_ko.js?dt=20170415"></script>
+		<script type="text/javascript" src="/comjs/shbLib.js?dt=20170415"></script>
+		<script type="text/javascript" src="/comjs/GridViewReport.js?dt=20170415"></script>
+		<script type="text/javascript" src="/comjs/siteoverlay.js?dt=20170415"></script>
+		<script type="text/javascript" src="/comjs/netfunnel.js" charset="UTF-8"></script>
+		<script type="text/javascript" src="/comjs/netfunnel_skin.js" charset="UTF-8"></script>
+
+		<!-- GA360 utm 파라미터를 수집하므로 WebSquare URL 변조 이전에 include 되어야 함.  -->
+		<script type="text/javascript" src="/comjs/GoogleAnalyticsBuilder.js" charset="UTF-8"></script>
+
+		<script type="text/javascript">
+			requires("uiplugin.popup");
+			document.domain="shinhan.com";
+			var IS_DEV = 'R';
+			var isIntro = true;	// 개발, 테스트는 url로 intro와 홈페이지를 구분할수없어 플래그설정 
+			var topWin = shbComm.getTopWindow();
+			top.window._PAGEINFO_LIST = null;
+			(function() {
+				shbComm.LANGUAGE = 'ko';
+				shbComm.hpeDomain = location.protocol + '//' + 'www.shinhan.com';
+				shbComm.ribDomain = location.protocol + '//' + 'bank.shinhan.com';
+				shbComm.checkUserAgent();
+				if (typeof window["localStorage"] != "undefined" && window.localStorage != null) {
+					try {
+						var testkey = 'test', storage = window.localStorage;
+						storage.setItem(testkey, '1');	//storage가 undefined인 경우 브라우져가 개인정보보호로 지정된 경우
+						storage.removeItem(testkey);
+					} catch (error) {
+						if (WebSquare.util.isIEAllVersion()) {
+							document.location.href = "/error/unlockProtectionMode.htm";
+						} else {
+							//alert('개인정보보호 해제 후 접속하시기 바랍니다.');
+							document.location.href = "/error/errorLocalStorage.htm";
+						}
+					}
+				}
+				if (window.addEventListener) {
+					window.addEventListener('contextmenu', function(e) { try { if (typeof e != 'undefined') { e.preventDefault(); return false; } else { return false; }} catch(e) {} } , false);
+				} else {
+					window.attachEvent('oncontextmenu', function(e) { try { if (typeof e != 'undefined') { e.preventDefault(); return false; } else { return false; }} catch(e) {} } );
+				}
+				var handlemouseEvent = function(e) {
+					try {
+						if (typeof e == 'undefined') {
+							if (window.event.button && window.event.button == "2") {
+								return false;
+							}
+						} else if ((e.which && e.which == 3) || (e.button && e.button == 2)) {
+							e.preventDefault();
+							return false;
+						} else if (e.keyCode == 123) {
+							e.preventDefault();
+							return false;
+						}
+					} catch (e) {}
+				};
+				window.onkeydown = handlemouseEvent;
+				window.onkeyup = handlemouseEvent; 
+			})();
+			function init() {
+				try{
+					shbComm.setCookie("system_language", 'ko');
+					
+					// GA360 ga 파람 초기화  
+					var gaParam = {};
+					gaParam["full_url"] = location.href;
+					gaParam["Dimension9"] = "신한은행_대표홈페이지";	// 채널_사이트명
+					gaParam["Dimension10"] = "PC WEB";		// 채널_채널 유형
+
+					// GA360 ga 파람 생성 : (GA 이벤트, 가상페이지뷰 적재용)  
+					WebSquare.localStorage.setItem("gaParam", JSON.stringify(gaParam));
+					WebSquare.localStorage.setItem("gaParam__VALUETYPE", 'json');
+					
+					// GA360 적재용 정보 
+					shbComm.menu.currentMenuCode = "/index.jsp";
+					shbComm.menu.currentMenuName = "신한은행_대표홈페이지";
+					
+					// 브라우져 주소창에 파라미터 제거 
+					var _url = location.protocol + "//" + location.host + "/index.jsp";
+					if (window.history.replaceState) { // 브라우져 버젼이 낮으면 지원 안함.
+						window.history.replaceState(null, window.title, _url);
+					}
+					
+					// 개발 유량제어 host 변경
+					if (topWin.IS_DEV == "D" || topWin.IS_DEV == "T") {
+						NetFunnel.TS_HOST = "apcdev.shinhan.com";
+					}
+					
+					//console.log(">>>>>>>>>>>>> NetFunnel.TS_SKIN_ID  " + NetFunnel.TS_SKIN_ID );   
+					//console.log(">>>>>>>>>>>>> typeof NetFunnel  " + typeof NetFunnel );
+					
+					//console.log(">>>>>>>>>>>>> typeof NetFunnel  " + NetFunnel.SkinUtil.get(NetFunnel.TS_SKIN_ID)["htmlStr"] );   
+					
+					NetFunnel_Action({service_id:"service_2", action_id:"hpe_main_1"},{
+						success:function(ev,ret) {
+							WebSquare.spaURLMapping = {};
+							WebSquare.startApplication();
+						}
+					});
+					
+				} catch(e) {
+					alert(e.message);
+				}
+			}
+			window.onload = init;
+		</script>
+	</head>
+<body>
+</body>
+</html>
