@@ -15,17 +15,16 @@ TARGET_VAL = 1018
 # 최단 경로 : (0, 1, 2, 8, 7, 6, 5, 4, 3)
 # 최단 거리 : 1018
 
-# 염색체를 클래스로 정의한다. 
 class Chromosome:
     def __init__(self, g = []):
-        self.genes = g		# 유전자는 리스트로 구현된다. 
-        self.fitness = 0		# 적합도
-        if self.genes.__len__()==0:	# 염색체가 초기 상태이면 초기화한다. 
+        self.genes = g		
+        self.fitness = 0		
+        if self.genes.__len__()==0:	
             temp_list = list(range(9))
             random.shuffle(temp_list)
             self.genes = temp_list.copy()
         
-    def cal_fitness(self):		# 적합도를 계산한다. 
+    def cal_fitness(self):		# 적합도를 계산
         global dist_table
         self.fitness = 0
         value = 0
@@ -43,7 +42,6 @@ class Chromosome:
     def __str__(self):
         return self.genes.__str__()
 
-# 염색체와 적합도를 출력한다. 
 def print_p(pop):
     i = 0
     for x in pop:
@@ -57,7 +55,6 @@ def select(pop):
     pick    = random.uniform(0, max_value)
     current = 0
     
-    # 룰렛휠에서 어떤 조각에 속하는지를 알아내는 루프
     for c in pop:
         current += c.cal_fitness()
         if current > pick:
